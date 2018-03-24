@@ -8,9 +8,10 @@ var express = require('express'),
     key = "805b2290e31d0da7cc708cd6cc3b1ec5",
     token = "acffb162bfe3d95886eb82a119fcf4a23353c6c01620d3a0280d221e0a29ff95";
 
+
 // Allows us to easily read the payload from the webhook
 app.use(bodyParser.json());
-\
+
 app.all("", function (req, res, next) {
 
     var trelloAction = req.body.action.type;

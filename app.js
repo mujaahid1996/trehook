@@ -8,29 +8,15 @@ var express = require('express'),
     key = "805b2290e31d0da7cc708cd6cc3b1ec5",
     token = "acffb162bfe3d95886eb82a119fcf4a23353c6c01620d3a0280d221e0a29ff95";
 
-
 // Allows us to easily read the payload from the webhook
 app.use(bodyParser.json());
-
-// Only act when a specific route is called
-// This reduces malicious / accidental use
+\
 app.all("", function (req, res, next) {
 
     var trelloAction = req.body.action.type;
 
-console.log("" + JSON.stringify(req.body));
-console.log("-------------------- \n ");  
-
-    // new card
-    if (trelloAction == "createCard") {            
-        console.log("" + JSON.stringify(req.body));
-        
-        console.log("-------------------- \n ");               
-        console.log("ada card baru");
-        console.log("-------------------- ");
-        var titleCard = JSON.stringify(req.body.action.data.card.name);
-        console.log(titleCard);
-    }
+    console.log("" + JSON.stringify(req.body));
+    console.log("-------------------- \n ");  
 
     // update deskripsi
     if (trelloAction == "updateCard" && 
@@ -45,14 +31,8 @@ console.log("-------------------- \n ");
         console.log(titleCard);
     }
 
-    if( trelloAction != null || trelloAction != "" ){
-        console.log("-------------------- \n ");    
-        console.log( trelloAction);
-        console.log("--------------------");
-    }
-
-
     res.send('OK');
+
 });
 
 

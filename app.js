@@ -1,3 +1,4 @@
+// custom
 var express = require('express'),
     request = require('request'),
     app = express(),
@@ -17,28 +18,48 @@ app.all("", function (req, res, next) {
 
     var trelloAction = req.body.action.type;
 
-    if (trelloAction == "commentCard") {            
-            console.log("" + JSON.stringify(req.body));
-        console.log("-------------------- \n ");
-        console.log("" + req.body.action.data.text);        
-        console.log("ada komentar baru");
+console.log("" + JSON.stringify(req.body));
+console.log("-------------------- \n ");  
+
+    // new card
+    if (trelloAction == "createCard") {            
+        console.log("" + JSON.stringify(req.body));
+        
+        console.log("-------------------- \n ");               
+        console.log("ada card baru");
         console.log("-------------------- ");
+        var titleCard = JSON.stringify(req.body.action.data.card.name);
+        console.log(titleCard);
+    }
+
+    // update deskripsi
+    if (trelloAction == "updateCard" && 
+        req.body.action.data.old.desc == "" 
+        ) {            
+        console.log("" + JSON.stringify(req.body));
+        
+        console.log("-------------------- \n ");               
+        console.log("ada deskripsi baru");
+        console.log("-------------------- ");
+        var titleCard = JSON.stringify(req.body.action.data.card.desc);
+        console.log(titleCard);
+    }
+
+    if( trelloAction != null || trelloAction != "" ){
+        console.log("-------------------- \n ");    
+        console.log( trelloAction);
+        console.log("--------------------");
     }
 
 
-    if (req.body.action.type === 'updateCard' ) {
-        console.log("-------------------- \n ");
-        console.log("card updated");
-        console.log("-------------------- ");
-    }
     res.send('OK');
 });
 
 
 // Standard NodeJS Listener
 var server = app.listen(port, function () {
-    var host = "7310e838.ngrok.io";
+    var host = "trehook.localtunnel.me"; // custom
     var port = server.address().port;
 
-    console.log('Priority Enforcer listening at http://%s:%s in %s', host, port, env);
+    console.log('Priority Enforcer listening at https://%s:%s in %s', host, port, env);
 });

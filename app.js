@@ -19,17 +19,23 @@ app.all("", function (req, res, next) {
     console.log("" + JSON.stringify(req.body));
     console.log("-------------------- \n ");  
 
-    // update deskripsi
-    if (trelloAction == "updateCard" && 
-        req.body.action.data.old.desc == "" 
-        ) {            
+    // card baru
+    if (trelloAction == "createCard" ) {            
         console.log("" + JSON.stringify(req.body));
         
         console.log("-------------------- \n ");               
         console.log("ada deskripsi baru");
         console.log("-------------------- ");
-        var titleCard = JSON.stringify(req.body.action.data.card.desc);
+        var titleCard = JSON.stringify(req.body.action.data.card.name);
+        var titleBoard = JSON.stringify(req.body.action.data.board.name);
         console.log(titleCard);
+        console.log(titleBoard);
+        console.log("-------------------- ");
+    }
+
+    if(trelloAction != "" || trelloAction != null ){
+        console.log(""+JSON.stringify(trelloAction) );
+        console.log( JSON.stringify(req.body.action.data) );
     }
 
     res.send('OK');
@@ -39,8 +45,9 @@ app.all("", function (req, res, next) {
 
 // Standard NodeJS Listener
 var server = app.listen(port, function () {
-    var host = "trehook.localtunnel.me"; // custom
+    var host = "18f524de.ngrok.io"; // custom
+    // var host = "trehook.localtunnel.me"; // custom
     var port = server.address().port;
 
-    console.log('Priority Enforcer listening at https://%s:%s in %s', host, port, env);
+    console.log('Priority Enforcer listening at http://%s:%s in %s', host, port, env);
 });
